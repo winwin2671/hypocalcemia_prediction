@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.venv-*/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# --- Patient-level data: do NOT commit to a public repository ---
+# This file is currently tracked. To stop tracking it locally run:
+#   git rm --cached Thyroid_Sx_research_(ReadyToClean).csv
+# Removing it from future commits does NOT erase prior git history;
+# see README "Data & privacy" for full history-scrub options.
+Thyroid_Sx_research_(ReadyToClean).csv
