@@ -1,0 +1,260 @@
+
+===== PAGE 1 =====
+Development and internal validation of a 
+preliminary preoperative prediction 
+model for postoperative transoral 
+endoscopic thyroidectomy vestibular 
+approach hypocalcemia 
+(Title: 13 words — within the 20-word limit) 
+Authors 
+[Author 1 Full Name]¹, [Author 2 Full Name]¹, [Author 3 / Engineering Team Member]², [Senior Author / 
+Supervisor]¹* 
+* Corresponding author 
+Affiliations 
+¹ [Department, Faculty/Institution, City, Country] 
+² [Department of Computer Engineering, Institution, City, Country] 
+Corresponding author contact 
+Name: [PENDING] 
+Email: [PENDING] 
+Address: [PENDING] 
+Phone: [PENDING] 
+🟡 Title page — per ICTMHS 2026 guideline, manuscript text file must start with a title page showing author 
+affiliations and contact information, with the corresponding author identified by an asterisk. Please replace all 
+placeholders before submission. 
+===== PAGE 2 =====
+ICTMHS 2026 — Manuscript Draft 
+2 
+Abstract 1 
+(230 words — within the 250-word limit; structured per IMRAD; no references included, per guideline) 2 
+Introduction: Postoperative hypocalcemia remains a common complication following transoral endoscopic 3 
+thyroidectomy vestibular approach (TOETVA). A key limitation of existing prediction models is their dependence 4 
+on intraoperative or early postoperative parathyroid hormone (PTH) levels. Thus, we aimed to develop and 5 
+internally validate a preliminary preoperative prediction model for post-TOETVA hypocalcemia. 6 
+Methods: We conducted a retrospective cohort study of 42 patients who underwent TOETVA. Hypocalcemia 7 
+occurred in 7 patients (16.7%). Three preoperative predictors—PTH, calcium, and vitamin D—were evaluated. 8 
+Given the small sample size and low event count (events-per-variable ≈ 2.3), three logistic regression-based models 9 
+were developed and compared: standard logistic regression, Firth logistic regression, and LASSO logistic 10 
+regression. Internal validation was performed using bootstrap resampling (1,000 resamples) to derive optimism-11 
+corrected area under the receiver operating characteristic curve. 12 
+Results: [PENDING] The optimism-corrected AUC was [X.XX, 95% CI X.XX–X.XX] for standard logistic 13 
+regression, [X.XX] for Firth logistic regression, and [X.XX] for LASSO logistic regression. The [MODEL NAME] 14 
+model showed the most stable performance. 15 
+Conclusion: This preliminary cohort study suggests a preoperative-only model may offer [promising/limited] 16 
+discrimination for post-TOETVA hypocalcemia. However, these findings should be considered hypothesis-17 
+generating and validation requires prospective, multicenter validation in larger patient populations. 18 
+Keywords 19 
+Transoral endoscopic thyroidectomy vestibular approach; hypocalcemia; prediction model; Firth regression; 20 
+LASSO; internal validation 21 
+(6 keywords — within the 6-keyword limit; "small sample" removed to comply) 22 
+Introduction 23 
+Transoral endoscopic thyroidectomy vestibular approach (TOETVA) has emerged as an alternative to conventional 24 
+thyroidectomy, offering comparable oncologic safety with improved cosmetic outcomes. As with conventional 25 
+thyroid surgery, postoperative hypocalcemia remains one of the most common complications following TOETVA, 26 
+resulting from inadvertent injury, devascularization, or removal of the parathyroid glands during dissection through 27 
+the narrow transoral working space. Given the technically demanding nature of the approach and its relatively recent 28 
+adoption, robust preoperative risk stratification tools specific to TOETVA are lacking. 29 
+Prior work in conventional thyroidectomy has consistently identified perioperative parathyroid hormone (PTH) 30 
+levels as the strongest predictors of postoperative hypocalcemia, outperforming clinical and surgical variables in 31 
+both regression-based and machine learning models [1,2]. However, these models have generally relied on 32 
+intraoperative or early postoperative PTH measurements, which are not available at the time of preoperative 33 
+counseling and surgical planning. A prediction model based on preoperative variables including PTH, calcium, and 34 
+vitamin D would allow risk stratification before surgery, potentially informing patient counseling, operative 35 
+planning, and the threshold for prophylactic calcium/vitamin D supplementation. 36 
+A central methodological challenge in developing such a model is the limited sample size inherent to TOETVA 37 
+cohorts, given the procedure's relatively recent introduction and lower-case volume compared with conventional 38 
+thyroidectomy. In our study, the events-per-variable (EPV) ratio for a three-predictor model is approximately 2.3, 39 
+well below the commonly cited threshold of 10 EPV historically recommended for stable logistic regression 40 
+estimation. Under these conditions, standard maximum-likelihood logistic regression is prone to complete or quasi-41 
+complete separation and finite-sample bias, particularly with rare outcomes. Firth's penalized-likelihood logistic 42 
+regression was developed specifically to address this bias in small-sample and rare-event settings, while least 43 
+===== PAGE 3 =====
+ICTMHS 2026 — Manuscript Draft 
+3 
+absolute shrinkage and selection operator (LASSO) regression offers an alternative regularization approach that 1 
+shrinks coefficients toward zero, reducing overfitting and improving out-of-sample generalizability at the cost of 2 
+introducing bias [3,4,5,6]. 3 
+Given this, the present study did not aim to establish a definitive clinically prediction model, but rather to conduct a 4 
+preliminary, hypothesis-generating comparison of three logistic regression-based approaches including standard 5 
+logistic regression, Firth logistic regression, and LASSO logistic regression to identify which modeling strategy 6 
+offers the most stable and generalizable performance for predicting post-TOETVA hypocalcemia using preoperative 7 
+biochemical variables alone to prepare for future prospective and adequately powered validation. 8 
+The objectives of this study were: (1) to describe the association between preoperative PTH, calcium, and vitamin D 9 
+levels and the occurrence of post-TOETVA hypocalcemia in a retrospective cohort; (2) to develop and internally 10 
+validate three candidate prediction models using bootstrap resampling; and (3) to compare the discriminative 11 
+performance and stability of the three models and identify the most suitable approach for this small-sample, 12 
+preoperative prediction context. 13 
+Methods 14 
+Study Design and Population 15 
+This was a retrospective cohort study conducted at [INSTITUTION], including consecutive patients who 16 
+underwent TOETVA between [START DATE] and [END DATE]. Reporting follows the TRIPOD statement for 17 
+prediction model development, adapted for a preliminary internal-validation-only study without external validation. 18 
+All patients who underwent TOETVA at the study institution during the study period were considered for inclusion. 19 
+Inclusion criteria: [PENDING] 20 
+Exclusion criteria: [PENDING — e.g., preoperative hypocalcemia, missing preoperative laboratory data, 21 
+revision surgery] 22 
+The final cohort comprised 42 patients. 23 
+Ethics Declaration 24 
+This study was approved by [institutional/licensing ethics committee name and protocol number — 25 
+PENDING]. All procedures were performed in accordance with the relevant institutional guidelines and regulations 26 
+and the 1964 Declaration of Helsinki and its later amendments. All patient data were de-identified prior to analysis. 27 
+No study participant names or other personally identifiable information are included in the text, figures, or tables of 28 
+this manuscript. 29 
+Outcome Definition 30 
+The primary outcome was postoperative hypocalcemia, defined as [PENDING: exact threshold and timing]. 31 
+Hypocalcemia occurred in 7 patients (16.7%); the remaining 35 patients did not develop hypocalcemia. 32 
+Predictor Variables 33 
+Three preoperative biochemical predictors were selected a prior based on biological plausibility and prior literature 34 
+on calcium homeostasis: preoperative intact parathyroid hormone (PTH), preoperative serum calcium, and 35 
+preoperative vitamin D (25-hydroxyvitamin D). Age and sex were additionally recorded as descriptive/optional 36 
+covariates but were not included as primary model predictors, given the limited sample size and the a priori focus on 37 
+biochemical predictors. 38 
+Statistical Analysis 39 
+===== PAGE 4 =====
+ICTMHS 2026 — Manuscript Draft 
+4 
+Data completeness and the pattern of missing data were assessed for all candidate predictors. The distribution of 1 
+each continuous variable was examined visually and assessed for normality using the Shapiro-Wilk test. Patients 2 
+were stratified into hypocalcemia group (n=7) and no hypocalcemia group (n=35), and continuous variables were 3 
+summarized as median (interquartile range) or mean ± standard deviation according to their distribution while 4 
+categorical variables were summarized as frequency (percentage). Between-group differences were assessed using 5 
+the Mann–Whitney U test for continuous variables and Fisher's exact test for categorical variables.  6 
+Three logistic regression-based models including standard logistic regression, Firth logistic regression, LASSO 7 
+logistic regression were developed with all three preoperative predictors. All continuous predictors were 8 
+standardized prior to model fitting. 9 
+Internal validation was performed using bootstrap sample with 1000 resamples from the original 42-patient cohort, 10 
+following the approach described by Harrell et al. and Steyerberg et al. for optimism correction in small-sample 11 
+models [7,8]. For each resample, the models were refit and evaluated on both the bootstrap sample (apparent 12 
+performance) and the original sample (test performance). The average difference between these estimates across all 13 
+iterations served as the optimism estimate, which was subtracted from the apparent performance to yield optimism-14 
+corrected area under the receiver operating characteristic (ROC) curve (AUC) values with 95% confidence intervals 15 
+(CI). 16 
+For each model, the following performance metrics were reported: AUC with 95% CI (primary metric); sensitivity 17 
+and specificity at a pre-specified/optimal probability threshold [PENDING: e.g., Youden's index]; and ROC curves 18 
+for visual comparison. As exploratory/secondary metrics, calibration plots and the Brier score were additionally 19 
+reported where feasible, acknowledging the limited precision of calibration assessment given the small number of 20 
+outcome events. The three models were compared based on their bootstrap-derived, optimism-corrected AUC and 21 
+the width of the corresponding 95% CI as a measure of estimate stability. The preferred model was selected based 22 
+on (a) highest optimism-corrected AUC, (b) narrowest/most stable CI, and (c) simplicity of the final model, with 23 
+simplicity prioritized in the event of comparable performance — consistent with methodological guidance favoring 24 
+parsimonious models in small-sample prediction research. 25 
+All statistical analyses were performed using [PENDING: R version X.X (packages: logistf, glmnet, pROC/rms) 26 
+/ Python version X.X]. A two-sided p value <0.05 was considered statistically significant for group comparisons; 27 
+given the exploratory nature of this step, no correction for multiple comparisons was applied. 28 
+Results 29 
+[PENDING — awaiting completed analysis] 30 
+Study population 31 
+[PENDING — flow of patient inclusion, baseline data completeness] 32 
+Descriptive and group comparison 33 
+Table 1 summarizes preoperative characteristics by hypocalcemia status. [PENDING — narrative summary of 34 
+Mann-Whitney/Fisher's exact results] 35 
+Variable Hypocalcemia (n=7) No hypocalcemia (n=35) P value 
+PTH (pg/mL) [PENDING] [PENDING] [PENDING] 
+Calcium (mmol/L) [PENDING] [PENDING] [PENDING] 
+Vitamin D (ng/mL) [PENDING] [PENDING] [PENDING] 
+Age (years) [PENDING] [PENDING] [PENDING] 
+Sex, female n (%) [PENDING] [PENDING] [PENDING] 
+Internal validation performance 36 
+Table 2 summarizes the optimism-corrected AUC, sensitivity, and specificity for each of the three models. 37 
+[PENDING — narrative summary] 38 
+===== PAGE 5 =====
+ICTMHS 2026 — Manuscript Draft 
+5 
+Model Optimism-corrected AUC (95% CI) Sensitivity / Specificity (%) 
+Standard logistic regression [PENDING] [PENDING] 
+Firth logistic regression [PENDING] [PENDING] 
+LASSO logistic regression [PENDING] [PENDING] 
+Model comparison and selected model 1 
+[PENDING — statement of which model was chosen and rationale, referring to Figure 1 (ROC curves) and Figure 2 2 
+(calibration plot, if feasible)] 3 
+Discussion 4 
+[PENDING — to be completed once results are available; per guideline, Discussion should be written as continuous 5 
+text without subheadings] 6 
+[PENDING] This preliminary study compared three logistic regression-based approaches for predicting post-7 
+TOETVA hypocalcemia using preoperative PTH, calcium, and vitamin D in a small retrospective cohort. [Summary 8 
+of which model performed best/most stably and the direction of association for each predictor to be inserted here.] 9 
+[PENDING] These findings should be interpreted in the context of the broader methodological literature on small-10 
+sample clinical prediction modeling. Given an events-per-variable ratio of approximately 2.3 in the present cohort, 11 
+standard logistic regression was expected to be susceptible to finite-sample bias and unstable coefficient estimates, 12 
+motivating the inclusion of Firth and LASSO logistic regression as bias-corrected and regularized alternatives, 13 
+respectively [3,4,5,6]. [Discussion of whether the observed results aligned with this theoretical expectation to be 14 
+inserted here.] 15 
+[PENDING] Compared with prior post-thyroidectomy hypocalcemia prediction models, which have generally relied 16 
+on intraoperative or early postoperative PTH measurements as the dominant predictor [1,2], the present model was 17 
+deliberately restricted to preoperative variables in order to address an earlier point in the clinical decision-making 18 
+pathway—namely, preoperative counseling and surgical planning—rather than postoperative management. 19 
+[Discussion of clinical implications specific to TOETVA to be inserted here.] 20 
+This study has several important limitations. The sample size was very small, with only 7 hypocalcemia events, 21 
+limiting statistical power and the precision of all reported performance estimates; the wide confidence intervals 22 
+anticipated around the AUC estimates should therefore be interpreted with caution. The retrospective, single-center 23 
+design may limit generalizability, and only internal validation was performed, without an external validation cohort. 24 
+Given these limitations, the title and framing of this work as “preliminary” is intentional, and the findings should be 25 
+regarded as hypothesis-generating rather than confirmatory. Future work should prioritize prospective, multicenter 26 
+data collection to achieve an adequate events-per-variable ratio, followed by external validation of the selected 27 
+model, and may consider the inclusion of additional preoperative variables to further improve discrimination. 28 
+References 29 
+(Vancouver style, numbered sequentially in order of first citation in text — please verify exact volume/page details 30 
+against the original sources before submission) 31 
+[1] Rao KN, Arora R, Rajguru R, Nagarkar NM. Artificial neural network to predict post-operative hypocalcemia 32 
+following total thyroidectomy. Indian J Otolaryngol Head Neck Surg. 2024;76(3):3094–3102. 33 
+[2] Cao B, Zhang C, Jiang M, Yang Y, Liu X. Development and validation of risk prediction models for permanent 34 
+hypocalcemia after total thyroidectomy in patients with papillary thyroid carcinoma. Sci Rep. 2025;15:9348. 35 
+[3] Firth D. Bias reduction of maximum likelihood estimates. Biometrika. 1993;80(1):27–38. 36 
+[4] Tibshirani R. Regression shrinkage and selection via the lasso. J R Stat Soc Series B Stat Methodol. 37 
+1996;58(1):267–288. 38 
+===== PAGE 6 =====
+ICTMHS 2026 — Manuscript Draft 
+6 
+[5] Van der Ploeg T, Austin PC, Steyerberg EW. Modern modelling techniques are data hungry: a simulation study 1 
+for predicting dichotomous endpoints. BMC Med Res Methodol. 2014;14:137. 2 
+[6] Christodoulou E, Ma J, Collins GS, Steyerberg EW, Verbakel JY, Van Calster B. A systematic review shows no 3 
+performance benefit of machine learning over logistic regression for clinical prediction models. J Clin 4 
+Epidemiol. 2019;110:12–22. 5 
+[7] Harrell FE. Regression Modeling Strategies: With Applications to Linear Models, Logistic and Ordinal 6 
+Regression, and Survival Analysis. 2nd ed. New York: Springer; 2015. 7 
+[8] Steyerberg EW. Clinical Prediction Models: A Practical Approach to Development, Validation, and Updating. 8 
+2nd ed. New York: Springer; 2019. 9 
+Acknowledgements 10 
+[PENDING — optional; e.g., acknowledge statistical/software support, grant or contribution numbers if 11 
+applicable] 12 
+Author Contributions 13 
+[Author 1]: conceptualization, methodology, writing – original draft.  14 
+[Author 2]: data curation, formal analysis, writing – original draft.  15 
+[Author 3 / Engineering]: software, formal analysis, writing – review & editing.  16 
+[Senior author]: supervision, writing – review & editing.  17 
+All authors have approved the submitted version and agree to be personally accountable for their own contributions. 18 
+Additional Information 19 
+Competing Interests 20 
+The author(s) declare no competing interests. [PENDING — amend if any author has a relevant financial or non-21 
+financial interest to declare] 22 
+Funding 23 
+[PENDING — state funding source, or: "This research received no specific grant from any funding agency."] 24 
+Figure Legends 25 
+(Figure legends must be placed after References, per guideline; maximum 350 words per legend) 26 
+Figure 1. [PENDING] Receiver operating characteristic (ROC) curves comparing the discriminative performance of 27 
+standard logistic regression, Firth logistic regression, and LASSO logistic regression for predicting post-TOETVA 28 
+hypocalcemia, based on optimism-corrected bootstrap internal validation (1,000 resamples). 29 
+Figure 2. [PENDING] Calibration plot(s) comparing predicted versus observed probability of post-TOETVA 30 
+hypocalcemia for the selected model. 31 
+Tables 32 
+(Tables are also embedded in the Results section above per journal convention; ensure each table fits within one 33 
+page and is provided in editable format, not as an image) 34 
+===== PAGE 7 =====
+ICTMHS 2026 — Manuscript Draft 
+7 
+Table 1. Preoperative characteristics by hypocalcemia status. 1 
+Table 2. Optimism-corrected internal validation performance of the three candidate models. 2 
+Compliance Checklist (for authors — remove before final submission) 3 
+● Title ≤20 words: 13 words — ✓ 4 
+● Abstract ≤250 words, structured, no references — ✓ (verify word count once Results filled in) 5 
+● Keywords ≤6 — ✓ (6 keywords) 6 
+● Main text (Intro+Results+Discussion) ≤4,500 words — check once complete 7 
+● References ≤60, Vancouver style, numbered — ✓ (8 so far) 8 
+● Discussion has no subheadings — ✓ 9 
+● Display items (figures+tables) ≤8 total — currently 2 tables + 2 figures = 4 — ✓ 10 
+● No footnotes used — ✓ 11 
+● Title page with affiliations and corresponding author asterisk — ✓ (fill in placeholders) 12 
+● Ethics declaration + consent statement included in Methods — ✓ (fill in placeholders) 13 
+● Author contributions, competing interests, funding statements included — ✓ (fill in placeholders) 14 
+● Line numbers included — ✓ (added at section level) 15 
+● Single manuscript file ≤10 MB combining text + figures for first submission — to confirm before final 16 
+packaging 17 
