@@ -1,0 +1,427 @@
+
+===== PAGE 1 =====
+Development and Internal Validation of a 
+Preliminary Preoperative Risk Model for 
+Predicting Postoperative Hypocalcemia 
+After Endoscopic Thyroidectomy  
+(Title: 15 words — within the 20-word limit. Scope updated from TOETVA-specific to endoscopic thyroidectomy 
+generally, per finalized analysis.) 
+Authors 
+[Author 1 Full Name]¹, [Author 2 Full Name]¹, [Author 3 / Engineering Team Member]², [Senior Author / 
+Supervisor]¹* 
+* Corresponding author 
+Affiliations 
+¹ [Department, Faculty/Institution, City, Country] 
+² [Department of Computer Engineering, Institution, City, Country] 
+Corresponding author contact 
+Name: [PENDING] 
+Email: [PENDING] 
+Address: [PENDING] 
+Phone: [PENDING] 
+🟡 Title page — per ICTMHS 2026 guideline. Please replace all placeholders before submission.  
+===== PAGE 2 =====
+ICTMHS 2026 — Manuscript Draft 
+2 
+Abstract 1 
+(240 words — within the 250-word limit) 2 
+Introduction: Postoperative hypocalcemia is a common complication of endoscopic thyroidectomy and may affect 3 
+postoperative recovery. Previous prediction models have often incorporated intraoperative or early postoperative 4 
+parathyroid hormone (PTH) measurements, which are not available for preoperative risk assessment. This study 5 
+aimed to assess the feasibility and internal validity of a preliminary preoperative risk model for predicting 6 
+postoperative hypocalcemia after endoscopic thyroidectomy. 7 
+Methods: We conducted a retrospective cohort study of 78 patients who underwent endoscopic thyroidectomy.  8 
+Postoperative hypocalcemia was defined as postoperative day-1 serum calcium <2.1 mmol/L and occurred in 10 9 
+patients (12.8%). Preoperative serum calcium, PTH, and vitamin D were selected as candidate predictors based on 10 
+their clinical relevance and availability before surgery. Because of the limited number of outcome events, the 11 
+number of predictors was restricted to reduce model complexity and minimize the risk of overfitting.  Standard 12 
+logistic regression, Firth logistic regression, and LASSO regression models were developed. Internal validation was 13 
+performed using 1,000 bootstrap resamples to assess optimism-corrected model performance, including 14 
+discrimination, calibration, and clinical utility. 15 
+Results: The apparent AUC was approximately 0.64 across all three regression approaches. After bootstrap 16 
+optimism correction, AUC values decreased to 0.527 (95% CI 0.432 -0.659) for standard logistic regression, 0.529 17 
+(95% CI 0.440-0.662) for Firth logistic regression, and 0.537 (95% CI 0.477-0.659) for LASSO regression. Brier 18 
+scores ranged from 0.109 to 0.110, and decision-curve analysis showed limited clinical benefit. Among the 19 
+evaluated variables, preoperative calcium demonstrated the strongest association with postoperative hypocalcemia.  20 
+Conclusion: In this preliminary cohort, a preoperative risk model based on routinely available biochemical variables 21 
+showed limited predictive performance after internal validation. These findings suggest that only preoperative 22 
+biochemical information may not adequately capture the factors associated with postoperative hypocalcemia after 23 
+endoscopic thyroidectomy. Future studies should incorporate surgical and perioperative variables to improve model 24 
+performance. 25 
+Keywords: Endoscopic thyroidectomy; hypocalcemia; prediction model; Firth regression; LASSO; internal 26 
+validation 27 
+Introduction 28 
+Endoscopic thyroidectomy has emerged as an alternative to conventional open thyroidectomy, offering comparable 29 
+oncologic safety with improved cosmetic outcomes. As with conventional thyroid surgery, postoperative 30 
+hypocalcemia remains one of the most common complications following endoscopic thyroidectomy, resulting from 31 
+inadvertent injury, devascularization, or removal of the parathyroid glands during dissection. Given the technically 32 
+demanding nature of endoscopic approaches and their relatively recent adoption, robust preoperative risk 33 
+stratification tools remain limited. 34 
+Prior work in conventional thyroidectomy has consistently identified perioperative parathyroid hormone (PTH) 35 
+levels as the strongest predictors of postoperative hypocalcemia, outperforming clinical and surgical variables in 36 
+both regression-based and machine learning models [1,2]. However, these models have generally relied on 37 
+intraoperative or early postoperative PTH measurements, which are not available at the time of preoperative 38 
+counseling and surgical planning. A prediction model based on preoperative variables including PTH, calcium, and 39 
+vitamin D would allow risk stratification before surgery, potentially informing patient counseling, operative 40 
+planning, and the threshold for prophylactic calcium/vitamin D supplementation.  41 
+A central methodological challenge in developing such a model is the limited sample size typical of endoscopic 42 
+thyroidectomy cohorts, given the procedure's relatively recent introduction and lower case volume compared with 43 
+conventional thyroidectomy. In our study, the events-per-variable (EPV) ratio for a three-predictor model is 44 
+approximately 3.3, below the commonly cited threshold of 10 EPV historically recommended for stable logistic 45 
+regression estimation. Under these conditions, standard maximum-likelihood logistic regression is prone to finite-46 
+===== PAGE 3 =====
+ICTMHS 2026 — Manuscript Draft 
+3 
+sample bias, particularly with rare outcomes. Firth's penalized-likelihood logistic regression was developed 1 
+specifically to address this bias in small-sample and rare-event settings, while least absolute shrinkage and selection 2 
+operator (LASSO) regression offers an alternative regularization approach that shrinks coefficients toward zero, 3 
+reducing overfitting and improving out-of-sample generalizability at the cost of introducing bias [3,4,5,6]. 4 
+Given this, the present study did not aim to establish a definitive, clinically deployable prediction model, but rather 5 
+to conduct a preliminary, hypothesis-generating comparison of three logistic regression-based approaches—standard 6 
+logistic regression, Firth logistic regression, and LASSO logistic regression —to identify which modeling strategy 7 
+offers the most stable and generalizable performance for predicting postoperative hypocalcemia after endoscopic 8 
+thyroidectomy using preoperative biochemical variables alone, in preparation for future prospective, adequately 9 
+powered validation. 10 
+The objectives of this study were: (1) to describe the association between preoperative PTH, calcium, and vitamin D 11 
+levels and the occurrence of postoperative hypocalcemia in a retrospective cohort; (2) to develop and internally 12 
+validate three candidate prediction models using bootstrap resampling; and (3) to compare the discriminative 13 
+performance and stability of the three models and identify the most suitable approach for this small -sample, 14 
+preoperative prediction context. 15 
+Methods 16 
+Study Design and Population 17 
+This was a retrospective cohort study conducted at [INSTITUTION], including consecutive patients who 18 
+underwent endoscopic thyroidectomy between [START DATE] and [END DATE]. Reporting follows the TRIPOD 19 
+statement for prediction model development, adapted for a preliminary internal -validation-only study without 20 
+external validation. 21 
+All patients who underwent endoscopic thyroidectomy at the study institution during the study period were 22 
+considered for inclusion. 23 
+Inclusion criteria: [PENDING] 24 
+Exclusion criteria: [PENDING — e.g., preoperative hypocalcemia, missing preoperative laboratory data, 25 
+revision surgery] Note: no patients required exclusion for pre-existing hypocalcemia, as all patients were 26 
+preoperatively normocalcemic. 27 
+The final cohort comprised 78 patients, of whom 10 (12.8%) developed postoperative hypocalcemia and 68 (87.2%) 28 
+did not. The cohort was surgically homogeneous, comprising predominantly unilateral procedures (approximately 29 
+91% unilateral lobectomy) with near-universal unilateral central lymph node dissection; consequently, surgical -30 
+extent variables (e.g., bilateral versus unilateral resection) were not analyzed as predictors, as they varied minimally 31 
+in this sample. 32 
+Ethics Declaration 33 
+This study was approved by [institutional/licensing ethics committee name and protocol number — 34 
+PENDING]. All procedures were performed in accordance with the relevant institutional guidelines and regulations 35 
+and the 1964 Declaration of Helsinki and its later amendments. All patient data were de -identified prior to analysis. 36 
+No study participant names or other personally identifiable information are included in the text, figures, or tables of 37 
+this manuscript. 38 
+Outcome Definition 39 
+The primary outcome was postoperative hypocalcemia, defined as postoperative day -1 serum calcium <2.1 mmol/L. 40 
+Hypocalcemia occurred in 10 patients (12.8%); the remaining 68 patients did not develop hypocalcemia.  41 
+Predictor Variables 42 
+===== PAGE 4 =====
+ICTMHS 2026 — Manuscript Draft 
+4 
+Three preoperative biochemical predictors were selected a priori based on biological plausibility and prior literature 1 
+on calcium homeostasis: preoperative intact parathyroid hormone (PTH), preoperative serum calcium, and 2 
+preoperative vitamin D. Age, sex, and body mass index (BMI) were additionally recorded as descriptive/optional 3 
+covariates but were not included as primary model predictors, given the limited sample size and the a priori focus on 4 
+biochemical predictors. There were no missing values for any of the three preoperative predictors or the outcome 5 
+variable, allowing a complete-case analysis without imputation. 6 
+Statistical Analysis 7 
+Data completeness and the pattern of missing data were assessed for all candidate predictors; none were missing. 8 
+The distribution of each continuous variable was examined visually and assessed for normality using the Shapiro -9 
+Wilk test (preoperative PTH was non-normally distributed and summarized as median [interquartile range]; 10 
+preoperative calcium and vitamin D approximated normal distributions and were summarized as mean ± standard 11 
+deviation). Patients were stratified into hypocalcemia (n=10) and no hypocalcemia (n=68) groups. Between -group 12 
+differences were assessed using the Mann–Whitney U test for continuous variables and Fisher's exact test for sex, to 13 
+characterize directional trends rather than to perform formal variable selection, given the pre -specified, biologically-14 
+driven choice of predictors. 15 
+Three logistic regression-based models—standard logistic regression, Firth logistic regression, and LASSO logistic 16 
+regression—were developed, each including all three preoperative predictors. All continuous predictors were 17 
+standardized prior to model fitting. Firth's method was implemented directly (rather than via the `firthlogist` 18 
+package, which was incompatible with the numpy ≥2.0 environment used), penalizing the log -likelihood with the 19 
+Jeffreys invariant prior to remove first-order finite-sample bias. The LASSO penalty parameter was selected via 5-20 
+fold cross-validation. 21 
+Internal validation for all three models was performed using bootstrap resampling (1,000 resamples with 22 
+replacement from the original 78-patient cohort), following the approach described by Harrell and Steyerberg for 23 
+optimism correction in small-sample prediction models [7,8]. For each resample, each model was refit and evaluated 24 
+both on the bootstrap sample (apparent performance) and on the original cohort (test performance); the average 25 
+difference between these estimates across all resamples yielded the optimism estimate, subtracted from the apparent 26 
+AUC to derive the optimism-corrected AUC with bootstrap-percentile 95% confidence intervals. As an independent 27 
+cross-check, DeLong 95% confidence intervals were also computed for the apparent AUC of each model.  28 
+For each model, the following performance metrics were reported: apparent and optimism -corrected AUC with 95% 29 
+CI; sensitivity and specificity at the Youden-optimal probability threshold; the Brier score; and calibration-in-the-30 
+large (intercept), calibration slope, and the Integrated Calibration Index (via LOWESS), acknowledging that these 31 
+apparent calibration estimates are imprecise given the small number of outcome events and were not independently 32 
+corrected for optimism. ROC curves, a binned calibration plot, and a decision -curve analysis (quantifying net 33 
+clinical benefit across threshold probabilities) were generated for visual and clinical -utility comparison across 34 
+models. The three models were compared based on their optimism-corrected AUC and the width of the 35 
+corresponding 95% CI as a measure of stability; the preferred model was selected based on (a) highest optimism -36 
+corrected AUC, (b) narrowest/most stable CI, and (c) simplicity and methodological appropriateness for small -37 
+sample, rare-event data, with the latter prioritized in the event of comparable performance across models. As an 38 
+exploratory, non-candidate comparator, a gradient-boosting model was additionally fit to the same data solely to 39 
+illustrate the behavior of flexible machine learning algorithms at this sample size.  40 
+All statistical analyses were performed using Python (scikit-learn, statsmodels, and dcurves packages), with a 41 
+dependency-free implementation of Firth's method and DeLong AUC confidence intervals. All randomness was 42 
+seeded (seed = 42) to ensure reproducibility. A two-sided P value <0.05 was considered statistically significant for 43 
+group comparisons; given the exploratory nature of this step, no correction for multiple comparisons was applied.  44 
+Results 45 
+Study population 46 
+===== PAGE 5 =====
+ICTMHS 2026 — Manuscript Draft 
+5 
+A total of 78 consecutive patients who underwent endoscopic thyroidectomy were included. Postoperative 1 
+hypocalcemia (day-1 serum calcium <2.1 mmol/L) occurred in 10 patients (12.8%); 68 patients (87.2%) did not 2 
+develop hypocalcemia. There were no missing values for any of the three preoperative predictors or the outcome, 3 
+and all patients were preoperatively normocalcemic. 4 
+Descriptive and group comparison 5 
+Table 1 summarizes preoperative characteristics by hypocalcemia status. No individual preoperative variable 6 
+differed significantly between groups (all P>0.1), consistent with the limited statistical power afforded by only 10 7 
+outcome events; this should not be interpreted as evidence that these predictors are uninformative. Nonetheless, all 8 
+three biochemical predictors trended in the biologically expected direction, with lower preoperative PTH, calcium, 9 
+and vitamin D in the hypocalcemia group, and preoperative calcium showed the largest relative between -group 10 
+difference. Notably, all 10 hypocalcemia cases occurred in women (10/10 vs. 57/68 in the no -hypocalcemia group; 11 
+Fisher's exact P=0.341); this numerically striking but statistically non -significant observation is consistent with prior 12 
+literature identifying female sex as a mild risk factor for post-thyroidectomy hypocalcemia and is reported here as an 13 
+exploratory observation rather than a finding. 14 
+Variable No hypocalcemia (n=68) Hypocalcemia (n=10) P value 
+Age, years, mean ± SD 38.00 ± 10.76 38.50 ± 5.08 0.852 
+BMI, kg/m², median [IQR] 22.60 [20.40–26.50] 20.62 [19.97–21.33] 0.108 
+Pre-op PTH, pg/mL, 
+median [IQR] 
+47.14 [34.88–54.10] 43.95 [29.44–52.35] 0.455 
+Pre-op calcium, mmol/L, 
+mean ± SD 
+2.41 ± 0.09 2.37 ± 0.05 0.203 
+Pre-op vitamin D, ng/mL, 
+mean ± SD 
+25.22 ± 9.03 22.71 ± 9.58 0.362 
+Sex, female, n (%) 57/68 (84%) 10/10 (100%) 0.341 
+Model coefficients and apparent performance 15 
+All three models agreed in the direction of association: lower preoperative calcium, PTH, and vitamin D each 16 
+predicted higher hypocalcemia risk, with preoperative calcium the strongest individual predictor in every model 17 
+(standardized odds ratio [OR] per 1-SD increase: standard logistic regression, OR 0.649; Firth logistic regression, 18 
+OR 0.687; LASSO logistic regression, OR 0.731). Firth logistic regression coefficients sat between the standard 19 
+maximum-likelihood estimates and zero, as expected of a bias-reduction method. LASSO logistic regression 20 
+retained all three a priori predictors without shrinkage to zero. Apparent (in -sample, uncorrected) AUC was similar 21 
+across models—standard logistic regression 0.641, Firth logistic regression 0.644, LASSO logistic regression 22 
+0.638—but these estimates are optimistic and were not interpreted as final performance ahead of internal validation.  23 
+Internal validation performance 24 
+Table 2 summarizes apparent and optimism-corrected performance for each model. After bootstrap optimism 25 
+correction (1,000 resamples), the apparent AUC of ≈0.64 for all three models fell to an optimism -corrected AUC of 26 
+0.527 (95% CI 0.432–0.659) for standard logistic regression, 0.529 (95% CI 0.440–0.662) for Firth logistic 27 
+regression, and 0.537 (95% CI 0.477–0.659) for LASSO logistic regression (Figure 1). The mean optimism was 28 
+approximately 0.11 AUC units for all models, consistent with the degree of overfitting predicted at an EPV of 29 
+approximately 3.3 [5]. All three 95% confidence intervals crossed 0.5, indicating that none of the models 30 
+discriminated meaningfully better than chance after correcting for optimism. DeLong 95% confidence intervals 31 
+computed independently on the apparent AUC were wide but consistent in direction and magnitude with the 32 
+bootstrap estimates (standard logistic regression 0.460–0.822; Firth logistic regression 0.468–0.820; LASSO logistic 33 
+regression 0.459–0.817), providing convergent evidence from two independent methods. 34 
+Model Apparent AUC Optimism-corrected AUC 
+(95% CI) 
+Brier score Sens / Spec 
+Standard LR 0.641 0.527 (0.432–0.659) 0.109 0.90 / 0.38 
+Firth LR * 0.644 0.529 (0.440–0.662) 0.110 0.90 / 0.44 
+===== PAGE 6 =====
+ICTMHS 2026 — Manuscript Draft 
+6 
+LASSO LR 0.638 0.537 (0.477–0.659) 0.109 0.90 / 0.44 
+Brier scores were low and similar across models (standard logistic regression 0.109; Firth logistic regression 0.110; 1 
+LASSO logistic regression 0.109), only marginally below the no-information Brier score corresponding to the 2 
+observed event rate (0.128), indicating negligible predictive skill beyond the base rate (Figure 2). Apparent 3 
+calibration slopes were close to 1 (standard logistic regression 1.000; Firth logistic regression 1.141; LASSO logistic 4 
+regression 1.405) with small Integrated Calibration Index values (0.015 –0.027); these apparent, in-sample 5 
+calibration estimates are imprecise given only 10 events and were not independently corrected for optimism. At the 6 
+Youden-optimal threshold, sensitivity was 0.90 for all three models, while specificity was substantially lower 7 
+(standard logistic regression 0.38; Firth and LASSO logistic regression 0.44 each), indicating that the models 8 
+flagged nearly all true hypocalcemia events at the cost of a high false-positive rate. 9 
+Decision-curve analysis 10 
+Decision-curve analysis (Figure 3) showed that none of the three models achieved net benefit over a “treat -all” or 11 
+“treat-none” strategy across the range of clinically plausible threshold probabilities (approximately 5% –30%), 12 
+independently corroborating the absence of clinically usable discrimination suggested by the optimism -corrected 13 
+AUC. 14 
+Model comparison and selected model 15 
+The three models were statistically indistinguishable, with substantially overlapping optimism -corrected AUC 95% 16 
+confidence intervals (approximately 0.43–0.66; Table 2). Per the pre-specified selection rule, Firth logistic 17 
+regression was selected as the final model: it is the methodologically preferred estimator for small -sample, rare-18 
+event logistic regression and demonstrated the narrowest coefficient confidence intervals among the three 19 
+candidates, though LASSO logistic regression (which retained all three a priori predictors without shrinkage) 20 
+represented an equally defensible alternative. The final Firth model, expressed in original clinical units, was: logit(p) 21 
+= 9.475 − 0.0046×PTH(pg/mL) − 4.3098×calcium(mmol/L) − 0.0299×vitamin D(ng/mL). Expressed as odds ratios 22 
+per clinically meaningful increment (bootstrap 95% CI), higher preoperative calcium (OR 0.61, 95% CI 0.25 –1.10 23 
+per 0.1 mmol/L), vitamin D (OR 0.75, 95% CI 0.32–1.62 per 10 ng/mL), and PTH (OR 0.92, 95% CI 0.39–1.37 per 24 
+10 pg/mL) were each associated with lower odds of hypocalcemia, although all confidence intervals crossed 1. For a 25 
+hypothetical patient at the mean of all three predictors, the model-predicted risk of hypocalcemia was 13.7%, closely 26 
+matching the observed event rate (12.8%). As an exploratory, non-candidate comparator, a gradient-boosting model 27 
+fit to the same data achieved an apparent AUC of 1.000, reflecting complete memorization of the training data and 28 
+empirically confirming that flexible machine learning approaches are inappropriate at this sample size (EPV ≈3.3) 29 
+[5,6]. 30 
+Discussion 31 
+(Continuous text, no subheadings, per guideline) 32 
+This preliminary study compared three logistic regression-based approaches—standard, Firth, and LASSO logistic 33 
+regression—for predicting postoperative hypocalcemia after endoscopic thyroidectomy using three preoperative 34 
+biochemical predictors (PTH, calcium, vitamin D) in a cohort of 78 patients with 10 hypocalcemia events. All three 35 
+models showed similar apparent discrimination (AUC ≈0.64), but this fell to an optimism -corrected AUC of 36 
+approximately 0.53 for standard and Firth logistic regression and 0.54 for LASSO logistic regression after bootstrap 37 
+internal validation, with all 95% confidence intervals crossing 0.5. Firth logistic regression was selected as the 38 
+preferred model based on its methodological suitability for small-sample, rare-event settings and its narrowest 39 
+coefficient confidence intervals, though its performance was statistically indistinguishable from the other two 40 
+approaches. In every model, preoperative calcium was the strongest individual predictor, and all three predictors 41 
+were associated with hypocalcemia risk in the biologically expected direction.  42 
+It is important to clarify the basis for selecting Firth logistic regression as the final model, since its optimism -43 
+corrected AUC (0.529) was not numerically the highest among the three candidates —LASSO logistic regression 44 
+achieved a marginally higher point estimate (0.537) with a narrower confidence interval width (0.181 vs. 0.222 45 
+AUC units). However, the 95% confidence intervals of all three models overlapped almost completely 46 
+(approximately 0.43–0.66), so this difference cannot be considered a meaningful performance distinction; selecting 47 
+===== PAGE 7 =====
+ICTMHS 2026 — Manuscript Draft 
+7 
+a model on the basis of a 0.01 difference in AUC under these conditions would itself constitute overfitting to noise. 1 
+Model selection therefore followed the pre-specified rule of prioritizing methodological appropriateness when 2 
+performance is statistically indistinguishable, rather than chasing the nominally highest point estimate. Firth's 3 
+penalized-likelihood approach is the estimator specifically developed to correct the finite-sample bias and separation 4 
+problems that arise at low EPV, and is widely regarded in the biostatistics literature as the more principled default 5 
+for small-sample, rare-event logistic regression regardless of AUC ranking; LASSO logistic regression, which 6 
+retained all three a priori predictors without shrinkage, remains an equally defensible alternative and is reported 7 
+alongside Firth logistic regression in Table 2 for transparency. 8 
+These findings are consistent with, rather than contrary to, established methodological literature on small -sample 9 
+clinical prediction modeling. At an events-per-variable ratio of approximately 3.3, marked optimism (≈0.11 AUC 10 
+units) between apparent and internally validated performance was expected [3,4,5,6], and the observed collapse 11 
+from an apparent AUC of 0.64 to an optimism-corrected AUC of approximately 0.53 illustrates precisely this 12 
+phenomenon. As a further empirical check, an exploratory gradient-boosting model fit to the same data achieved a 13 
+perfect apparent AUC of 1.0, reflecting complete memorization rather than genuine discrimination; this reinforces 14 
+the appropriateness of restricting model candidates to penalized and bias-corrected regression approaches, rather 15 
+than more flexible machine learning algorithms, at this sample size [5,6]. 16 
+From a clinical utility standpoint, decision-curve analysis showed no model achieved net benefit over a treat-all or 17 
+treat-none strategy across plausible threshold probabilities, and at the Youden -optimal threshold, models achieved 18 
+high sensitivity (0.90) only at the cost of poor specificity (0.38–0.44)—a trade-off unlikely to be clinically useful for 19 
+guiding individualized postoperative calcium supplementation. One plausible explanation for the limited 20 
+discriminative performance is that this cohort was surgically homogeneous, comprising predominantly unilateral 21 
+procedures with near-universal unilateral central lymph node dissection; the surgical variables most strongly 22 
+associated with hypocalcemia in prior literature (extent of resection, bilateral dissection) therefore varied little in this 23 
+sample, leaving preoperative biochemistry alone unable to capture surgical risk that was not well represented in the 24 
+cohort. 25 
+These results contrast with prior post-thyroidectomy hypocalcemia prediction models, several of which reported 26 
+considerably higher discrimination (AUC 0.90–0.98) [1,2]; however, those models relied on intraoperative or early 27 
+postoperative PTH measurements as the dominant predictor, which by definition capture the degree of parathyroid 28 
+injury that has already occurred during surgery. The present model was deliberately restricted to preoperative 29 
+variables in order to address an earlier point in the clinical decision-making pathway—namely, preoperative 30 
+counseling and surgical planning—and the comparatively limited performance observed here suggests that 31 
+preoperative biochemistry alone, without information about the surgical insult itself, may be insufficient to reliably 32 
+predict this outcome. 33 
+This study has several important limitations. Although the sample size (n=78) exceeded that of our originally 34 
+planned preliminary cohort, the number of hypocalcemia events remained small (n=10), yielding an EPV of only 3.3 35 
+and correspondingly wide confidence intervals around all performance estimates; this limits statistical power for 36 
+detecting true associations and precludes reliable assessment of model calibration beyond descriptive, in -sample 37 
+estimates. The retrospective, single-center design and the surgical homogeneity of the cohort (predominantly 38 
+unilateral procedures) may limit generalizability to more heterogeneous or higher -risk surgical populations. Only 39 
+internal validation was performed; no external validation cohort was available. Given these limitations, and 40 
+consistent with the explicitly preliminary framing of this study, the findings should be interpreted as hypothesis -41 
+generating rather than confirmatory. 42 
+Future work should prioritize prospective, multicenter data collection to achieve an adequate events -per-variable 43 
+ratio, incorporate surgical-extent variables (e.g., unilateral versus bilateral resection, extent of lymph node 44 
+dissection) alongside preoperative biochemistry, and pursue external validation of the selected model. Despite its 45 
+limited discriminative performance, this study demonstrates a methodologically transparent approach to small -46 
+sample prediction modeling—reporting an honest, optimism-corrected result rather than an overfit, non-replicable 47 
+estimate—which we believe represents the more scientifically defensible posture for a preliminary cohort of this 48 
+size. 49 
+This finding of limited discrimination should not be equated with a lack of scientific value. A substantial and well -50 
+documented problem in the clinical prediction modeling literature is the publication of apparent, in -sample 51 
+performance metrics without adequate internal validation, which produces optimistic models that fail to replicate in 52 
+===== PAGE 8 =====
+ICTMHS 2026 — Manuscript Draft 
+8 
+independent data [5,6]. By explicitly correcting for optimism and reporting the resulting null -ish finding, this study 1 
+avoids contributing a non-replicable model to the literature and instead provides an honest evidence base for future 2 
+work. The result is also directly actionable: it indicates that preoperative biochemistry alone, in a surgically 3 
+homogeneous cohort with limited variation in operative extent, is insufficient to reliably predict postoperative 4 
+hypocalcemia, and that future model development should prioritize larger, adequately powered cohorts that capture 5 
+both biochemical and surgical predictors. In this sense, a rigorously derived preliminary finding of limited 6 
+discrimination constitutes a meaningful and useful contribution, sparing future investigators from over -interpreting 7 
+similarly modest apparent performance in comparable small-sample settings. 8 
+References 9 
+(Vancouver style, numbered sequentially in order of first citation in text — please verify exact volume/page details 10 
+against the original sources before submission) 11 
+[1] Rao KN, Arora R, Rajguru R, Nagarkar NM. Artificial neural network to predict post -operative hypocalcemia 12 
+following total thyroidectomy. Indian J Otolaryngol Head Neck Surg. 2024;76(3):3094 –3102. 13 
+[2] Cao B, Zhang C, Jiang M, Yang Y, Liu X. Development and validation of risk prediction models for permanent 14 
+hypocalcemia after total thyroidectomy in patients with papillary thyroid carcinoma. Sci Rep. 2025;15:9348.  15 
+[3] Firth D. Bias reduction of maximum likelihood estimates. Biometrika. 1993;80(1):27 –38. 16 
+[4] Tibshirani R. Regression shrinkage and selection via the lasso. J R Stat Soc Series B Stat Methodol. 17 
+1996;58(1):267–288. 18 
+[5] Van der Ploeg T, Austin PC, Steyerberg EW. Modern modelling techniques are data hungry: a simulation study 19 
+for predicting dichotomous endpoints. BMC Med Res Methodol. 2014;14:137.  20 
+[6] Christodoulou E, Ma J, Collins GS, Steyerberg EW, Verbakel JY, Van Calster B. A systematic review shows no 21 
+performance benefit of machine learning over logistic regression for clinical prediction models. J Clin 22 
+Epidemiol. 2019;110:12–22. 23 
+[7] Harrell FE. Regression Modeling Strategies: With Applications to Linear Models, Logistic and Ordinal 24 
+Regression, and Survival Analysis. 2nd ed. New York: Springer; 2015. 25 
+[8] Steyerberg EW. Clinical Prediction Models: A Practical Approach to Development, Validation, and Updating. 26 
+2nd ed. New York: Springer; 2019. 27 
+Acknowledgements 28 
+[PENDING — optional; e.g., acknowledge statistical/software support, grant or contribution numbers if 29 
+applicable] 30 
+Author Contributions 31 
+[Author 1]: conceptualization, methodology, writing – original draft.  32 
+[Author 2]: data curation, formal analysis, writing – original draft.  33 
+[Author 3 / Engineering]: software, formal analysis, writing – review & editing.  34 
+[Senior author]: supervision, writing – review & editing.  35 
+All authors have approved the submitted version and agree to be personally accountable for their own contributions.  36 
+Additional Information 37 
+Competing Interests 38 
+===== PAGE 9 =====
+ICTMHS 2026 — Manuscript Draft 
+9 
+The author(s) declare no competing interests. [PENDING — amend if any author has a relevant financial or non-1 
+financial interest to declare] 2 
+Funding 3 
+[PENDING — state funding source, or: "This research received no specific grant from any funding agency."]  4 
+Figure Legends 5 
+(Figure legends must be placed after References, per guideline; maximum 350 words per legend)  6 
+Figure 1. Receiver operating characteristic (ROC) curves for the three candidate models (apparent, full cohort). 7 
+Standard, Firth, and LASSO logistic regression each achieved an apparent AUC of 0.64. These apparent curves are 8 
+optimistic; optimism-corrected AUC values obtained via bootstrap internal validation (1,000 resamples) are reported 9 
+in the text and Table 2 and were substantially lower (≈0.53–0.54, 95% CI crossing 0.5 for all models). 10 
+Figure 2. Calibration plot (binned observed proportion vs. predicted probability) for the three candidate models, 11 
+with Brier scores shown in the legend (standard logistic regression 0.109; Firth logistic regression 0.110; LASSO 12 
+logistic regression 0.109). The dashed line represents ideal calibration. Brier scores were only marginally below the 13 
+no-information value corresponding to the observed event rate (0.128), indicating limited predictive skill beyond the 14 
+base rate. 15 
+Figure 3. Decision-curve analysis showing standardized net benefit across threshold probabilities of predicted 16 
+hypocalcemia risk for Firth, LASSO, and standard logistic regression, compared with “treat all” and “treat none” 17 
+reference strategies. None of the three models showed net benefit over the treat -all or treat-none strategies across the 18 
+plausible threshold range (approximately 5%–30%), indicating no clinically usable net benefit at this sample size. 19 
+Tables 20 
+(Tables are also embedded in the Results section above per journal convention; ensure each table fits within one 21 
+page and is provided in editable format, not as an image) 22 
+Table 1. Preoperative characteristics by hypocalcemia status (n=78). 23 
+Table 2. Apparent and optimism-corrected internal validation performance of the three candidate models. * Selected 24 
+as the final model. 25 
+Figures 26 
+(Embedded below for reviewer convenience; final submission should follow journal figure -file requirements) 27 
+===== PAGE 10 =====
+ICTMHS 2026 — Manuscript Draft 
+10 
+ 1 
+Figure 1. ROC curves (apparent, full cohort). 2 
+ 3 
+Figure 2. Calibration (binned observed vs. predicted). 4 
+
+===== PAGE 11 =====
+ICTMHS 2026 — Manuscript Draft 
+11 
+ 1 
+Figure 3. Decision-curve analysis. 2 
+Compliance Checklist (for authors — remove before final submission) 3 
+● Title ≤20 words: 15 words — ✓ 4 
+● Abstract ≤250 words, structured, no references — ✓ (240 words) 5 
+● Keywords ≤6 — ✓ (6 keywords) 6 
+● Main text (Intro+Results+Discussion) ≤4,500 words — verify final count 7 
+● References ≤60, Vancouver style, numbered — ✓ (8 so far) 8 
+● Discussion has no subheadings — ✓ 9 
+● Display items (figures+tables) ≤8 total — currently 2 tables + 3 figures = 5 — ✓ 10 
+● No footnotes used — ✓ 11 
+● Title page with affiliations and corresponding author asterisk — fill in placeholders 12 
+● Ethics declaration + consent statement included in Methods — fill in placeholders (institution, IRB, dates) 13 
+● Author contributions, competing interests, funding statements included — fill in placeholders 14 
+● Line numbers included — ✓ 15 
+● Remaining [PENDING] items: institution name, study dates, IRB/ethics committee name & protocol 16 
+number, inclusion/exclusion criteria, author names/affiliations/contact, funding statement, 17 
+acknowledgements 18 
+● Single manuscript file ≤10 MB combining text + figures for first submission — confirm final file size 19 
+before packaging 20 
